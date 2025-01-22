@@ -24,4 +24,12 @@ class Conveyor extends Machine {
 		this.last = last;
 		this.next = next;
 	}
+
+	interact(): void {
+		this.showInformation()
+	}
+
+	showInformation(): void {
+		//TODO:
+	}
 }
