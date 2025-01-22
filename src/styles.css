@@ -3,3 +3,56 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
+
+:root {
+	--grass-color: #7ec850;
+	--iron-color: #a19d94;
+	--copper-color: #b87333;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+}
+
+.window {
+	display: grid;
+	grid-template: repeat(var(--grid-size), 64px) / repeat(var(--grid-size), 64px);
+	gap: 1px;
+}
+
+.cell {
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	outline: 1px solid black;
+}
+
+.iron {
+	background: var(--iron-color);
+}
+
+.copper {
+	background: var(--copper-color);
+}
+
+.grass {
+	background: var(--grass-color);
+}
+
+.resource-type-popup {
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	background: grey;
+	border-radius: 16px;
+	outline: 3px solid black;
+	top: 1%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}

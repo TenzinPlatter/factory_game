@@ -1,0 +1,4 @@
+const GRIDSIZE = 10;
+const STACKSIZE = 100;
+
+export { GRIDSIZE, STACKSIZE };
