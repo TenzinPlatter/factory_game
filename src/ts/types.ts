@@ -1,12 +1,16 @@
 import { GRIDSIZE } from "./globals";
-import Cell from "./cellTypes/cell";
 
 type Tier = 1 | 2 | 3;
 
-enum resourceType {
-	Grass = "Grass",
-	Iron = "Iron",
-	Copper = "Copper",
+enum ResourceType {
+	GRASS = "Grass",
+	IRON = "Iron",
+	COPPER = "Copper",
+}
+
+enum MachineType {
+	MINER,
+	CONVEYOR,
 }
 
 class Coordinate {
@@ -27,19 +31,9 @@ class Coordinate {
 	}
 }
 
-class CellData {
-	HTMLPointer: HTMLElement;
-	cell: Cell;
-
-	constructor(cell: Cell, element: HTMLElement) {
-		this.cell = cell;
-		this.HTMLPointer = element;
-	}
-}
-
 export {
 	Coordinate,
-	resourceType,
-	CellData,
-	Tier
+	ResourceType,
+	Tier,
+	MachineType,
 };

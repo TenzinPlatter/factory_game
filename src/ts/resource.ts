@@ -1,14 +1,14 @@
-import { resourceType } from "./types";
+import { ResourceType } from "./types";
 
 class Resource {
-	type: resourceType;
+	type: ResourceType;
 
-	constructor(type: resourceType) {
+	constructor(type: ResourceType) {
 		this.type = type;
 	}
 }
 
-function generateResourceType(difficulty: number): resourceType {
+function generateResourceType(difficulty: number): ResourceType {
 	if (difficulty > 1 || difficulty < 0) {
 		throw new Error(`Invalid difficulty: ${difficulty}`);
 	}
@@ -17,11 +17,11 @@ function generateResourceType(difficulty: number): resourceType {
 	const random = Math.random();
 
 	if (random < 0.5) {
-		return resourceType.Grass;
+		return ResourceType.GRASS;
 	} else if (random < 0.8) {
-		return resourceType.Iron;
+		return ResourceType.IRON;
 	} else {
-		return resourceType.Copper;
+		return ResourceType.COPPER;
 	}
 }
 

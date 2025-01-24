@@ -1,15 +1,15 @@
 import Cell from "../cellTypes/cell";
+import { Tier } from "../types";
 
 abstract class Machine {
-	timeLastClicked: number = performance.now();
+	tier: Tier;
 
-	abstract interact(): void;
+	constructor(tier: Tier) {
+		this.tier = tier;
+	}
 
 	abstract showInformation(): void;
-
-	static canPlace(cell: Cell): boolean {
-		throw new Error("Method not implemented");
-	}
+	abstract canPlaceOn(cell: Cell): boolean;
 }
 
 export default Machine;

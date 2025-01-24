@@ -3,7 +3,6 @@ import Machine from "./machine";
 import { Tier } from "../types";
 
 class Conveyor extends Machine {
-	tier: Tier;
 	cell: Cell;
 	throughput: number;
 	next: Conveyor | null;
@@ -15,17 +14,16 @@ class Conveyor extends Machine {
 		last: Conveyor | null = null,
 		next: Conveyor | null = null,
 	) {
-		super();
+		super(tier);
 
-		this.tier = tier;
 		this.cell = cell;
 		this.throughput = 60 * (2**(tier - 1));
 		this.last = last;
 		this.next = next;
 	}
 
-	interact(): void {
-		this.showInformation()
+	canPlaceOn(cell: Cell): boolean {
+		return cell.machine === null;
 	}
 
 	showInformation(): void {

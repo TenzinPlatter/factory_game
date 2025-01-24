@@ -4,8 +4,8 @@ import { Coordinate } from "../types";
 import Cell from "./cell";
 
 class Grass extends Cell {
-	constructor(location: Coordinate, resource: Resource) {;
-		super(location, resource);
+	constructor(location: Coordinate, resource: Resource, element: HTMLElement) {;
+		super(location, resource, element);
 	}
 }
 
