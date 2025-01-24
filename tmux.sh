@@ -12,13 +12,13 @@ else
 	tmux rename-window -t 0 "code"
 	tmux send-keys -t "code" "nv src" C-m
 
-	tmux new-window -t $SESSION_NAME:1 -n "git"
+	tmux new-window -t $SESSION_NAME:1 -n "shell"
+
+	tmux new-window -t $SESSION_NAME:2 -n "git"
 	tmux send-keys -t "git" "lg" C-m
 
-	tmux new-window -t $SESSION_NAME:2 -n "dev server"
+	tmux new-window -t $SESSION_NAME:3 -n "dev server"
 	tmux send-keys -t "dev server" "npm run dev" C-m
-
-	tmux new-window -t $SESSION_NAME:3 -n "shell"
 
 	tmux select-window -t 0
 
