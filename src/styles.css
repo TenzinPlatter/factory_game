@@ -64,5 +64,10 @@ button.play-turn {
 	border-radius: 50%;
 	bottom: 15px;
 	right: 15px;
+	color: grey;
+	font-size: 50px;
+}
+
+button.play-turn:hover {
 	color: black;
 }
