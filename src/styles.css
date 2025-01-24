@@ -56,3 +56,13 @@ body {
 	align-items: center;
 	color: white;
 }
+
+button.play-turn {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	bottom: 15px;
+	right: 15px;
+	color: black;
+}
