@@ -1,10 +1,7 @@
 import { Ore } from "../cellTypes/cell";
-import Cell from "../cellTypes/cell";
 import { STACKSIZE } from "../globals";
-import { resourceType } from "../types";
 import Machine from "./machine";
-
-type Tier = 1 | 2 | 3;
+import { Tier } from "../types";
 
 class Miner extends Machine {
 	miningRate: number;
@@ -45,6 +42,8 @@ class Miner extends Machine {
 			this.amountStored + resourcesGained,
 			this.maxStorage
 		);
+
+		this.showInformation();
 	}
 
 	showInformation(): void {

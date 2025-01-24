@@ -18,5 +18,7 @@ else
 	tmux new-window -t $SESSION_NAME:2 -n "Dev Server"
 	tmux send-keys -t "Dev Server" "npm run dev" C-m
 
+	tmux select-window -t 0
+
 	tmux attach-session -t $SESSION_NAME
 fi

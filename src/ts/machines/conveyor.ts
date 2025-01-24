@@ -1,7 +1,6 @@
 import Cell from "../cellTypes/cell";
 import Machine from "./machine";
-
-type Tier = 1 | 2 | 3;
+import { Tier } from "../types";
 
 class Conveyor extends Machine {
 	tier: Tier;

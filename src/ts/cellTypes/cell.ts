@@ -1,8 +1,6 @@
 import Resource from "../resource";
-import { Coordinate } from "../types";
+import { Coordinate, Tier } from "../types";
 import Machine from "../machines/machine";
-
-type Tier = 1 | 2 | 3;
 
 abstract class Cell {
 	resource: Resource;
