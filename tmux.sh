@@ -9,14 +9,16 @@ else
 	tmux new-session -d -s $SESSION_NAME
 	
 	# main window
-	tmux rename-window -t 0 "Code"
-	tmux send-keys -t "Code" "nv src" C-m
+	tmux rename-window -t 0 "code"
+	tmux send-keys -t "code" "nv src" C-m
 
-	tmux new-window -t $SESSION_NAME:1 -n "Git"
-	tmux send-keys -t "Git" "lg" C-m
+	tmux new-window -t $SESSION_NAME:1 -n "git"
+	tmux send-keys -t "git" "lg" C-m
 
-	tmux new-window -t $SESSION_NAME:2 -n "Dev Server"
-	tmux send-keys -t "Dev Server" "npm run dev" C-m
+	tmux new-window -t $SESSION_NAME:2 -n "dev server"
+	tmux send-keys -t "dev server" "npm run dev" C-m
+
+	tmux new-window -t $SESSION_NAME:3 -n "shell"
 
 	tmux select-window -t 0
 
