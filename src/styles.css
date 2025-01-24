@@ -20,7 +20,7 @@ body {
 
 .window {
 	display: grid;
-	grid-template: repeat(var(--grid-size), 64px) / repeat(var(--grid-size), 64px);
+	grid-template: repeat(var(--grid-size), var(--square-size)) / repeat(var(--grid-size), var(--square-size));
 	gap: 1px;
 }
 

@@ -1,6 +1,8 @@
 import { GRIDSIZE } from "./globals";
 import Cell from "./cellTypes/cell";
 
+type Tier = 1 | 2 | 3;
+
 enum resourceType {
 	Grass = "Grass",
 	Iron = "Iron",
@@ -35,4 +37,9 @@ class CellData {
 	}
 }
 
-export { Coordinate, resourceType, CellData };
+export {
+	Coordinate,
+	resourceType,
+	CellData,
+	Tier
+};

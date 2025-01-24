@@ -3,6 +3,7 @@ import Grass from "./cellTypes/grass";
 import Copper from "./cellTypes/copper";
 import Iron from "./cellTypes/iron";
 import Resource, { generateResourceType } from "./resource";
+import { GRIDSIZE } from "./globals";
 
 function generateMapResources(size: number): resourceType[][] {
 	let values: resourceType[][] = [];
@@ -42,8 +43,8 @@ function generateMap(size: number, grid: HTMLElement) {
 	const resourceTypes = generateMapResources(size);
 
 	for (let i = 0; i < size**2; i++) {
-		const x = i % 10;
-		const y = Math.floor(i / 10);
+		const x = i % GRIDSIZE;
+		const y = Math.floor(i / GRIDSIZE);
 
 		const child = document.createElement("div");
 		child.classList.add("cell");
@@ -51,6 +52,8 @@ function generateMap(size: number, grid: HTMLElement) {
 		const coords: Coordinate = new Coordinate(x, y);
 		const resource: Resource = new Resource(resourceTypes[y][x]);
 		let cell;
+
+		//TODO: adjust terrain generation algo to clump resources together
 
 		switch (resource.type) {
 			case resourceType.Grass:
