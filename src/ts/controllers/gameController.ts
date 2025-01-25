@@ -1,24 +1,28 @@
-import Cell from "./cellTypes/cell";
-import { GRIDSIZE } from "./globals";
-import generateMap from "./map";
-import Machine from "./machines/machine";
-import Miner from "./machines/miner";
-import { MachineType } from "./types";
+import Cell from "../cellTypes/cell";
+import { GRIDSIZE } from "../globals";
+import generateMap from "../map";
+import Machine from "../machines/machine";
+import BuildMenuController from "./buildMenuController";
+import { MachineType } from "../types";
 
 class GameController {
 	cells: Cell[][];
 	grid: HTMLElement;
-	selectedBuilding: Machine | null = null;
+	selectedBuilding: MachineType | null = null;
+	buildMenu: BuildMenuController;
 
 	constructor() {
 		this.grid = <HTMLElement>document.querySelector("#window");
 		this.cells = generateMap(GRIDSIZE, this.grid);
+
+		const buildMenu = <HTMLElement>document.querySelector("#build-menu");
+		this.buildMenu = new BuildMenuController(buildMenu, this);
+
 		this.setup();
 	}
 
 	setup() {
 		setupTurnButton();
-		setupBuildMenu();
 		this.setEventListenersForBuilding()
 	}
 
@@ -32,7 +36,7 @@ class GameController {
 						return;
 					}
 					
-					if (this.selectedBuilding.canPlaceOn(cell)) {
+					if (cell.canPlace(this.selectedBuilding)) {
 						cell.element.style.background = "green";
 					} else {
 						cell.element.style.background = "red";
@@ -49,7 +53,7 @@ class GameController {
 						// Otherwise store changes and deal with them when deselecting building
 						return;
 					}
-					if (this.selectedBuilding.canPlaceOn(cell)) {
+					if (cell.canPlace(this.selectedBuilding)) {
 						cell.element.style.background = "red";
 					} else {
 						cell.element.style.background = "green";
@@ -58,21 +62,6 @@ class GameController {
 			}
 		}
 	}
-}
-
-function setupBuildMenu() {
-	const button = document.querySelector("#build-menu-button");
-	const buildMenu = <HTMLElement>document.querySelector("#build-menu")!;
-
-	button?.addEventListener("click", () => {
-		if (buildMenu.style.display == "grid") {
-			buildMenu.style.display = "none";
-		} else {
-			buildMenu.style.display = "grid";
-		}
-	});
-
-	populateBuildMenu();
 }
 
 function setupTurnButton() {
@@ -89,21 +78,5 @@ function setupTurnButton() {
 	})
 }
 
-function populateBuildMenu() {
-	const buildMenu = document.querySelector("#build-menu");
-	for (let i = 0; i < 25; i++) {
-		const child = document.createElement("div");
-		child.classList.add("build-item");
-
-		if (i == 0) {
-			child.textContent = "Miner";
-			child.addEventListener("click", () => {
-
-			});
-		}
-
-		buildMenu?.appendChild(child);
-	}
-}
 
 export default GameController;

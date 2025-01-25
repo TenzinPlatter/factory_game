@@ -2,6 +2,8 @@ import { GRIDSIZE } from "./globals";
 
 type Tier = 1 | 2 | 3;
 
+type BuildCostData = [ResourceType, number];
+
 enum ResourceType {
 	GRASS = "Grass",
 	IRON = "Iron",
@@ -36,4 +38,5 @@ export {
 	ResourceType,
 	Tier,
 	MachineType,
+	BuildCostData,
 };

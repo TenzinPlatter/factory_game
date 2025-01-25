@@ -1,5 +1,5 @@
 import Resource from "../resource";
-import { Coordinate, Tier } from "../types";
+import { Coordinate, MachineType, Tier } from "../types";
 import Machine from "../machines/machine";
 
 abstract class Cell {
@@ -15,10 +15,14 @@ abstract class Cell {
 		this.element = element;
 	}
 
+	abstract canPlace(machineType: MachineType): boolean;
+
 	placeMachine(machine: Machine) {
-		if (this.machine === null) {
-			this.machine = machine;
+		if (this.machine != null) {
+			throw new Error("Check if machine can be placed before attempting to place");
 		}
+
+		this.machine = machine;
 	}
 }
 
