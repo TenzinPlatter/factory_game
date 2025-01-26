@@ -1,6 +1,6 @@
 import Cell from "../cellTypes/cell";
 import Machine from "./machine";
-import { Tier } from "../types";
+import { MachineType, Tier } from "../types";
 
 class Conveyor extends Machine {
 	cell: Cell;
@@ -14,7 +14,7 @@ class Conveyor extends Machine {
 		last: Conveyor | null = null,
 		next: Conveyor | null = null,
 	) {
-		super(tier);
+		super(tier, MachineType.CONVEYOR);
 
 		this.cell = cell;
 		this.throughput = 60 * (2**(tier - 1));
@@ -30,3 +30,5 @@ class Conveyor extends Machine {
 		//TODO:
 	}
 }
+
+export default Conveyor;

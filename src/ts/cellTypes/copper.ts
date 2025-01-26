@@ -1,6 +1,7 @@
 import { Coordinate, MachineType } from "../types";
 import Resource from "../resource";
 import { Ore } from "./cell";
+import { MININGPNG } from "../globals";
 
 class Copper extends Ore {
 	constructor(location: Coordinate, resource: Resource, element: HTMLElement) {;
@@ -19,6 +20,7 @@ class Copper extends Ore {
 				throw new Error(`Implement canPlace for machinetype: ${machineType}`);
 		}
 	}
+
 }
 
 export default Copper;

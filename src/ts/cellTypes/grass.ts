@@ -1,6 +1,7 @@
 import Resource from "../resource";
 import { Coordinate, MachineType } from "../types";
 import Cell from "./cell";
+import { MININGPNG } from "../globals";
 
 class Grass extends Cell {
 	constructor(location: Coordinate, resource: Resource, element: HTMLElement) {;
@@ -19,6 +20,7 @@ class Grass extends Cell {
 				throw new Error(`Implement canPlace for machinetype: ${machineType}`);
 		}
 	}
+
 }
 
 export default Grass;

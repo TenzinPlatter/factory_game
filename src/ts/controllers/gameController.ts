@@ -1,9 +1,11 @@
-import Cell from "../cellTypes/cell";
+import Cell, { Ore } from "../cellTypes/cell";
 import { GRIDSIZE } from "../globals";
 import generateMap from "../map";
 import Machine from "../machines/machine";
 import BuildMenuController from "./buildMenuController";
 import { MachineType } from "../types";
+import Miner from "../machines/miner";
+import Conveyor from "../machines/conveyor";
 
 class GameController {
 	cells: Cell[][];
@@ -31,44 +33,65 @@ class GameController {
 			for (let x = 0; x < this.cells[y].length; x++) {
 				const cell = this.cells[y][x];
 
+				let turnOnHoverEffect = (controller: GameController) => {
+					if (cell.canPlace(controller.selectedBuilding!)) {
+						cell.element.classList.add("selected-building-can-place")
+					} else {
+						cell.element.classList.add("selected-building-cant-place")
+					}
+				}
+
+				let turnOffHoverEffect = () => {
+					// will only remove if it is present
+					cell.element.classList.remove(
+						"selected-building-cant-place",
+						"selected-building-can-place"
+					);
+				}
+
 				cell.element.addEventListener("mouseover", () => {
 					if (this.selectedBuilding == null) {
 						return;
 					}
-					
-					if (cell.canPlace(this.selectedBuilding)) {
-						if (!cell.element.classList.contains("selected-building-can-place")) {
-							cell.element.classList.add("selected-building-can-place")
-						}
-					} else {
-						if (!cell.element.classList.contains("selected-building-cant-place")) {
-							 cell.element.classList.add("selected-building-cant-place")
-						}
-					}
 
+					turnOnHoverEffect(this);
 				});
 
 				cell.element.addEventListener("mouseout", () => {
 					if (this.selectedBuilding == null) {
-						//NOTE: this may cause a bug where changes made in corresponding
-						// "mouseover" event listener are not overwritten if building is
-						// unselected before mouseover
-						// Can be avoided by requiring a mouse action where mouse must be
-						// off grid to deselect building
-						// Otherwise store changes and deal with them when deselecting building
 						return;
 					}
 
-					if (cell.canPlace(this.selectedBuilding)) {
-						if (cell.element.classList.contains("selected-building-can-place")) {
-							cell.element.classList.remove("selected-building-can-place")
-						}
-					} else {
-						if (cell.element.classList.contains("selected-building-cant-place")) {
-							 cell.element.classList.remove("selected-building-cant-place")
-						}
-					}
+					turnOffHoverEffect();
 				});
+
+				cell.element.addEventListener("click", () => {
+					if (
+						this.selectedBuilding === null
+							|| !cell.canPlace(this.selectedBuilding)
+					) {
+						return;
+					}
+
+					let machine;
+					switch (this.selectedBuilding) {
+						case MachineType.MINER:
+							machine = new Miner(1, cell as Ore);
+						break;
+
+						case MachineType.CONVEYOR:
+							machine = new Conveyor(1, cell);
+						break;
+
+						default:
+							throw new Error(`Unimplemented machine type: ${this.selectedBuilding}`)
+					}
+
+					cell.placeMachine(machine);
+					turnOffHoverEffect();
+					this.selectedBuilding = null;
+				});
+
 			}
 		}
 	}

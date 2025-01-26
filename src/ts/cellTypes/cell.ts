@@ -1,6 +1,7 @@
 import Resource from "../resource";
 import { Coordinate, MachineType, Tier } from "../types";
 import Machine from "../machines/machine";
+import { MININGPNG } from "../globals";
 
 abstract class Cell {
 	resource: Resource;
@@ -23,6 +24,25 @@ abstract class Cell {
 		}
 
 		this.machine = machine;
+		this.updateSprite();
+	}
+
+	updateSprite(): void {
+		const img = document.createElement("img");
+		img.classList.add("cell-img");
+		img.src = this.getSpritePath();
+
+		this.element.appendChild(img);
+	}
+
+	getSpritePath(): string {
+		switch (this.machine!.type) {
+			case MachineType.MINER:
+				return MININGPNG;
+
+			default:
+				throw new Error("unimplemented sprite");
+		}
 	}
 }
 

@@ -2,7 +2,7 @@ import Cell from "../cellTypes/cell";
 import { Ore } from "../cellTypes/cell";
 import { STACKSIZE } from "../globals";
 import Machine from "./machine";
-import { ResourceType, Tier } from "../types";
+import { MachineType, ResourceType, Tier } from "../types";
 
 class Miner extends Machine {
 	miningRate: number;
@@ -15,7 +15,7 @@ class Miner extends Machine {
 			throw new Error("Cannot place machine on ore with another machine");
 		}
 
-		super(tier);
+		super(tier, MachineType.MINER);
 		this.miningRate = 60 * (2**(tier - 1));
 		this.cell = cell;
 	}

@@ -25,10 +25,11 @@ body {
 }
 
 .cell {
-	display: grid;
-	place-items: center;
 	padding: 1rem;
 	outline: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .iron {
@@ -111,4 +112,9 @@ button#build-menu-button {
 
 .selected-building-cant-place {
 	background: red;
+}
+
+.cell-img {
+	width: var(--square-size);
+	height: var(--square-size);
 }

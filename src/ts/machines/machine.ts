@@ -1,11 +1,13 @@
 import Cell from "../cellTypes/cell";
-import { Tier } from "../types";
+import { MachineType, Tier } from "../types";
 
 abstract class Machine {
 	tier: Tier;
+	type: MachineType;
 
-	constructor(tier: Tier) {
+	constructor(tier: Tier, type: MachineType) {
 		this.tier = tier;
+		this.type = type;
 	}
 
 	abstract showInformation(): void;
