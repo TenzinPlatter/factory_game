@@ -37,10 +37,15 @@ class GameController {
 					}
 					
 					if (cell.canPlace(this.selectedBuilding)) {
-						cell.element.style.background = "green";
+						if (!cell.element.classList.contains("selected-building-can-place")) {
+							cell.element.classList.add("selected-building-can-place")
+						}
 					} else {
-						cell.element.style.background = "red";
+						if (!cell.element.classList.contains("selected-building-cant-place")) {
+							 cell.element.classList.add("selected-building-cant-place")
+						}
 					}
+
 				});
 
 				cell.element.addEventListener("mouseout", () => {
@@ -53,10 +58,15 @@ class GameController {
 						// Otherwise store changes and deal with them when deselecting building
 						return;
 					}
+
 					if (cell.canPlace(this.selectedBuilding)) {
-						cell.element.style.background = "red";
+						if (cell.element.classList.contains("selected-building-can-place")) {
+							cell.element.classList.remove("selected-building-can-place")
+						}
 					} else {
-						cell.element.style.background = "green";
+						if (cell.element.classList.contains("selected-building-cant-place")) {
+							 cell.element.classList.remove("selected-building-cant-place")
+						}
 					}
 				});
 			}

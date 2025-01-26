@@ -13,7 +13,7 @@ class Grass extends Cell {
 				return false;
 
 			case MachineType.CONVEYOR:
-				return this.machine != null;
+				return this.machine == null;
 
 			default:
 				throw new Error(`Implement canPlace for machinetype: ${machineType}`);

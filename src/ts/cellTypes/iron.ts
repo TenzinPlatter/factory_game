@@ -10,10 +10,10 @@ class Iron extends Ore {
 	canPlace(machineType: MachineType): boolean {
 		switch (machineType) {
 			case MachineType.MINER:
-				return this.machine != null;
+				return this.machine == null;
 
 			case MachineType.CONVEYOR:
-				return this.machine != null;
+				return this.machine == null;
 
 			default:
 				throw new Error(`Implement canPlace for machinetype: ${machineType}`);

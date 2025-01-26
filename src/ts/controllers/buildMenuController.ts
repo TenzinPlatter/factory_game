@@ -49,7 +49,6 @@ class BuildMenuController {
 				child.textContent = "Miner";
 				child.addEventListener("click", () => {
 					controller.selectedBuilding = MachineType.MINER;
-					console.log("hi");
 					this.hide();
 				});
 			}
