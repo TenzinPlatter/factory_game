@@ -1,21 +1,25 @@
 import Cell, { Ore } from "../cellTypes/cell";
 import { GRIDSIZE } from "../globals";
 import generateMap from "../map";
-import Machine from "../machines/machine";
 import BuildMenuController from "./buildMenuController";
-import { MachineType } from "../types";
+import { MachineType, ResourceType } from "../types";
 import Miner from "../machines/miner";
-import Conveyor from "../machines/conveyor";
+import Storage from "../machines/storage";
+import StorageController from "./storageController";
 
 class GameController {
+	// indexed with [y][x]
 	cells: Cell[][];
 	grid: HTMLElement;
 	selectedBuilding: MachineType | null = null;
 	buildMenu: BuildMenuController;
+	miners: Miner[] = [];
+	storageController: StorageController;
 
 	constructor() {
 		this.grid = <HTMLElement>document.querySelector("#window");
 		this.cells = generateMap(GRIDSIZE, this.grid);
+		this.storageController = new StorageController();
 
 		const buildMenu = <HTMLElement>document.querySelector("#build-menu");
 		this.buildMenu = new BuildMenuController(buildMenu, this);
@@ -24,8 +28,46 @@ class GameController {
 	}
 
 	setup() {
-		setupTurnButton();
+		this.setupTurnButton();
 		this.setEventListenersForBuilding()
+	}
+
+	setupTurnButton() {
+		const popup = <HTMLElement>document.querySelector("#resource-type-popup");
+		const playTurnButton = document.querySelector("button#play-turn");
+		playTurnButton?.addEventListener("mouseover", () => {
+			popup.style.display = "flex";
+			popup.textContent = "Finish Turn";
+		})
+
+		playTurnButton?.addEventListener("mouseout", () => {
+			popup.style.display = "none";
+			popup.textContent = "";
+		})
+
+		playTurnButton?.addEventListener("click", () => {
+			let incomes = [];
+			for (let i = 0; i < MachineType.__LENGTH; i++) {
+				incomes.push(0);
+			}
+
+			for (const miner of this.miners) {
+				const resourceType = miner.cell.resource.type;
+				const resourceAdjustment = miner.cell.tier / 2;
+				const income = miner.miningRate * resourceAdjustment;
+
+				incomes[resourceType] += income;
+			}
+
+			for (let i = 0; i < incomes.length; i++) {
+				if (incomes[i] > this.storageController.roomLeft()) {
+					this.storageController.resources[i] += this.storageController.roomLeft();
+					break;
+				}
+
+				this.storageController.resources[i] += incomes[i];
+			}
+		});
 	}
 
 	setEventListenersForBuilding() {
@@ -68,7 +110,7 @@ class GameController {
 				cell.element.addEventListener("click", () => {
 					if (
 						this.selectedBuilding === null
-							|| !cell.canPlace(this.selectedBuilding)
+						|| !cell.canPlace(this.selectedBuilding)
 					) {
 						return;
 					}
@@ -77,11 +119,13 @@ class GameController {
 					switch (this.selectedBuilding) {
 						case MachineType.MINER:
 							machine = new Miner(1, cell as Ore);
-						break;
+							this.miners.push(machine);
+							break;
 
-						case MachineType.CONVEYOR:
-							machine = new Conveyor(1, cell);
-						break;
+						case MachineType.STORAGE:
+							machine = new Storage(1, cell);
+							this.storageController.addStorage(machine);
+							break;
 
 						default:
 							throw new Error(`Unimplemented machine type: ${this.selectedBuilding}`)
@@ -96,20 +140,5 @@ class GameController {
 		}
 	}
 }
-
-function setupTurnButton() {
-	const popup = <HTMLElement>document.querySelector("#resource-type-popup");
-	const playTurn = document.querySelector("button#play-turn");
-	playTurn?.addEventListener("mouseover", () => {
-		popup.style.display = "flex";
-		popup.textContent = "Finish Turn";
-	})
-
-	playTurn?.addEventListener("mouseout", () => {
-		popup.style.display = "none";
-		popup.textContent = "";
-	})
-}
-
 
 export default GameController;

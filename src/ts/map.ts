@@ -42,7 +42,7 @@ function generateMap(size: number, grid: HTMLElement) {
 	const ResourceTypes = generateMapResources(size);
 
 	for (let y = 0; y < size; y++) {
-		let curr_row = [];
+		let currRow = [];
 		for (let x = 0; x < size; x++) {
 			const child = document.createElement("div");
 			child.classList.add("cell");
@@ -68,10 +68,16 @@ function generateMap(size: number, grid: HTMLElement) {
 			}
 
 			const popup = <HTMLElement>document.querySelector("#resource-type-popup");
+			const resourceTypeStrings = Object.keys(ResourceType).filter(key => isNaN(Number(key)));
+
+			const capitalizeFirstLetter = (val: string) => {
+				val = val.toLowerCase();
+				return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+			}
 
 			child.addEventListener("mouseover", () => {
 				popup.style.display = "flex";
-				popup.textContent = resource.type.toString();
+				popup.textContent = capitalizeFirstLetter(resourceTypeStrings[resource.type]);
 			});
 
 			child.addEventListener("mouseout", () => {
@@ -79,12 +85,13 @@ function generateMap(size: number, grid: HTMLElement) {
 				popup.textContent = "";
 			});
 
-			child.classList.add(resource.type.toString().toLowerCase());
+			child.classList.add(resourceTypeStrings[resource.type].toLowerCase());
 
 			grid?.appendChild(child);
-			curr_row.push(cell);
+			currRow.push(cell);
 		}
-		cells.push(curr_row);
+
+		cells.push(currRow);
 	}
 
 	return cells;

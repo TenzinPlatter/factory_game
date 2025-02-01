@@ -13,7 +13,7 @@ class Copper extends Ore {
 			case MachineType.MINER:
 				return this.machine == null;
 
-			case MachineType.CONVEYOR:
+			case MachineType.STORAGE:
 				return this.machine == null;
 
 			default:

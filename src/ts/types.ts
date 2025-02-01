@@ -5,14 +5,16 @@ type Tier = 1 | 2 | 3;
 type BuildCostData = [ResourceType, number];
 
 enum ResourceType {
-	GRASS = "Grass",
-	IRON = "Iron",
-	COPPER = "Copper",
+	GRASS,
+	IRON,
+	COPPER,
+	__LENGTH,
 }
 
 enum MachineType {
 	MINER,
-	CONVEYOR,
+	STORAGE,
+	__LENGTH,
 }
 
 class Coordinate {

@@ -13,7 +13,7 @@ class Grass extends Cell {
 			case MachineType.MINER:
 				return false;
 
-			case MachineType.CONVEYOR:
+			case MachineType.STORAGE:
 				return this.machine == null;
 
 			default:
