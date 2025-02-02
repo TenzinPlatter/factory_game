@@ -44,7 +44,7 @@ body {
 	background: var(--grass-color);
 }
 
-#resource-type-popup {
+#info-popup {
 	position: absolute;
 	width: 150px;
 	height: 40px;
@@ -77,16 +77,14 @@ button#play-turn:hover {
 	position: absolute;
 	/* always on top */
 	z-index: 1000000;
-	width: 80vw;
-	height: 80vh;
 	display: none;
 	/* display: grid; */
 	background: #4a4a4a;
-	border-radius: 32px;
+	border-radius: 8px;
 	padding: 16px;
 	grid-template: repeat(5, 64px) / repeat(5, 64px);
 	overflow: scroll;
-	gap: 8px;
+	gap: 16px;
 }
 
 #build-menu > .build-item {
@@ -94,6 +92,11 @@ button#play-turn:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 8px;
+}
+
+#build-menu > .build-item:hover {
+	border: 2px dashed blue;
 }
 
 button#build-menu-button {
@@ -117,4 +120,9 @@ button#build-menu-button {
 .cell-img {
 	width: var(--square-size);
 	height: var(--square-size);
+}
+
+.storage-img {
+	width: calc(2 * var(--square-size));
+	height: calc(2 * var(--square-size));
 }

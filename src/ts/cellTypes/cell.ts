@@ -1,7 +1,7 @@
 import Resource from "../resource";
 import { Coordinate, MachineType, Tier } from "../types";
 import Machine from "../machines/machine";
-import { MININGPNG } from "../globals";
+import { MININGPNG, STORAGEPNG } from "../globals";
 
 abstract class Cell {
 	resource: Resource;
@@ -29,7 +29,13 @@ abstract class Cell {
 
 	updateSprite(): void {
 		const img = document.createElement("img");
-		img.classList.add("cell-img");
+	
+		// issue with storage sprite showing too small, probs cause of white space
+		if (this.machine!.type == MachineType.STORAGE) {
+			img.classList.add("storage-img");
+		} else {
+			img.classList.add("cell-img");
+		}
 		img.src = this.getSpritePath();
 
 		this.element.appendChild(img);
@@ -39,6 +45,9 @@ abstract class Cell {
 		switch (this.machine!.type) {
 			case MachineType.MINER:
 				return MININGPNG;
+
+			case MachineType.STORAGE:
+				return STORAGEPNG;
 
 			default:
 				throw new Error("unimplemented sprite");

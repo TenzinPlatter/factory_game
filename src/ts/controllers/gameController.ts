@@ -33,7 +33,7 @@ class GameController {
 	}
 
 	setupTurnButton() {
-		const popup = <HTMLElement>document.querySelector("#resource-type-popup");
+		const popup = <HTMLElement>document.querySelector("#info-popup");
 		const playTurnButton = document.querySelector("button#play-turn");
 		playTurnButton?.addEventListener("mouseover", () => {
 			popup.style.display = "flex";

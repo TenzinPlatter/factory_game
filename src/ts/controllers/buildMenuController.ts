@@ -18,10 +18,12 @@ class BuildMenuController {
 
 	show(): void {
 		this.element.style.display = "grid";
+		this.isVisible = true;
 	}
 
 	hide(): void {
 		this.element.style.display = "none";
+		this.isVisible = false;
 	}
 
 	/**
@@ -29,13 +31,14 @@ class BuildMenuController {
 	*	the visibility of the window after being toggled
 		*/
 	toggleVisibility(): boolean {
+		// swapping the value of this.isVisible is handled in hide() and show()
+		// so that they can be called directly without messing up the value of isVisible
 		if (this.isVisible) {
 			this.hide();
 		} else {
 			this.show();
 		}
 
-		this.isVisible = !this.isVisible;
 		return this.isVisible;
 	}
 
@@ -49,6 +52,12 @@ class BuildMenuController {
 				child.textContent = "Miner";
 				child.addEventListener("click", () => {
 					controller.selectedBuilding = MachineType.MINER;
+					this.hide();
+				});
+			} else if (i == 1) {
+				child.textContent = "Storage";
+				child.addEventListener("click", () => {
+					controller.selectedBuilding = MachineType.STORAGE;
 					this.hide();
 				});
 			}
