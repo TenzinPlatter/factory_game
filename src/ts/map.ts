@@ -67,7 +67,7 @@ function generateMap(size: number, grid: HTMLElement) {
 					throw new Error(`Invalid resource type: ${resource.type}`)
 			}
 
-			const popup = <HTMLElement>document.querySelector("#resource-type-popup");
+			const popup = <HTMLElement>document.querySelector("#info-popup");
 			const resourceTypeStrings = Object.keys(ResourceType).filter(key => isNaN(Number(key)));
 
 			const capitalizeFirstLetter = (val: string) => {
